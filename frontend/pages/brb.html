@@ -1,0 +1,52 @@
+<div class="info-box">
+  <strong>Belief Rule Base (BRB):</strong> Define IF-THEN rules with antecedent belief degrees and rule weights. The system activates rules proportionally and aggregates consequent distributions using the ER algorithm.
+</div>
+
+<div class="grid2">
+  <div class="card">
+    <div class="card-title"><i class="ti ti-settings" aria-hidden="true"></i> BRB Setup</div>
+    <div class="input-row">
+      <div class="label">Number of Antecedents (Input Criteria)</div>
+      <input type="number" id="brb-ant-count" value="2" min="1" max="5" onchange="brbGenerateInputs()">
+    </div>
+    <div class="input-row">
+      <div class="label">Consequent Grades</div>
+      <input type="text" id="brb-grades" value="Very Low, Low, Middle, High, Very High">
+    </div>
+    <div id="brb-ant-defs"></div>
+    <button class="btn btn-sm" style="margin-top:8px" onclick="brbGenerateInputs()"><i class="ti ti-refresh" aria-hidden="true"></i> Refresh Setup</button>
+  </div>
+  <div class="card">
+    <div class="card-title"><i class="ti ti-input-search" aria-hidden="true"></i> Observation Input</div>
+    <div id="brb-observations"></div>
+    <div class="input-row" style="margin-top:10px">
+      <div class="label">Inference Method</div>
+      <select id="brb-method">
+        <option value="analytical">Analytical ER</option>
+        <option value="simple">Simple Weighted Average</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-title"><i class="ti ti-git-branch" aria-hidden="true"></i> Rule Base Definition</div>
+  <div style="display:flex;gap:8px;margin-bottom:1rem;flex-wrap:wrap;">
+    <button class="btn btn-sm" onclick="brbAddRule()"><i class="ti ti-plus" aria-hidden="true"></i> Add Rule</button>
+    <button class="btn btn-sm" onclick="brbClearRules()"><i class="ti ti-trash" aria-hidden="true"></i> Clear All</button>
+    <button class="btn btn-sm" onclick="brbLoadSample()"><i class="ti ti-download" aria-hidden="true"></i> Load Sample Rules</button>
+    <button class="btn btn-primary" onclick="brbCalculate()" style="margin-left:auto"><i class="ti ti-calculator" aria-hidden="true"></i> Run BRB Inference</button>
+  </div>
+  <div id="brb-rules-container"></div>
+</div>
+
+<div class="card" id="brb-results" style="display:none">
+  <div class="card-title"><i class="ti ti-chart-bar" aria-hidden="true"></i> BRB Inference Results</div>
+  <div class="metric-grid" id="brb-metrics"></div>
+  <div class="section-sep">Consequent Belief Distribution</div>
+  <div class="chart-container"><canvas id="brb-belief-chart"></canvas></div>
+  <table class="result-table" id="brb-table"></table>
+  <div class="section-sep">Rule Activation Weights</div>
+  <table class="result-table" id="brb-activation-table"></table>
+  <button class="btn btn-sm" onclick="brbExport()" style="margin-top:10px"><i class="ti ti-file-export" aria-hidden="true"></i> Export CSV</button>
+</div>

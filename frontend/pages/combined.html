@@ -1,0 +1,87 @@
+<div class="info-box">
+  <strong>Combined ER + BRB Analysis:</strong> Sub-criteria are first aggregated within each group using <strong>Evidential Reasoning (ER)</strong>. The resulting group beliefs are then synthesised into a final accommodation suitability score using either full <strong>ER (across groups)</strong> or a <strong>Belief Rule Base (BRB)</strong>. The per-group ER results and the chosen final method are reported separately and clearly.
+</div>
+
+<div class="card">
+  <div class="card-title"><i class="ti ti-adjustments" aria-hidden="true"></i> Criteria Group Weights</div>
+  <p style="font-size:13px;color:var(--text-sec);margin-bottom:1rem">Assign weights to each main criteria group. Weights must sum to 1.0.</p>
+  <div class="grid3">
+    <div class="input-row">
+      <div class="label">w1 — Facilities weight</div>
+      <input type="number" id="comb-w1" value="0.4" min="0" max="1" step="0.01">
+    </div>
+    <div class="input-row">
+      <div class="label">w2 — Cost weight</div>
+      <input type="number" id="comb-w2" value="0.35" min="0" max="1" step="0.01">
+    </div>
+    <div class="input-row">
+      <div class="label">w3 — General weight</div>
+      <input type="number" id="comb-w3" value="0.25" min="0" max="1" step="0.01">
+    </div>
+  </div>
+  <div id="comb-weight-sum-warn" style="font-size:12px;color:var(--coral-400);display:none">⚠ Weights do not sum to 1.0</div>
+</div>
+
+<div class="card">
+  <div class="card-title"><i class="ti ti-list-check" aria-hidden="true"></i> Sub-Criteria Relative Weights (within group)</div>
+  <div class="tab-row">
+    <button class="tab active" onclick="combShowTab('w1')">Facilities (w1)</button>
+    <button class="tab" onclick="combShowTab('w2')">Cost (w2)</button>
+    <button class="tab" onclick="combShowTab('w3')">General (w3)</button>
+  </div>
+  <div id="comb-subweights"></div>
+</div>
+
+<div class="card">
+  <div class="card-title"><i class="ti ti-database" aria-hidden="true"></i> Belief Data Source</div>
+  <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+    <label style="font-size:13px;display:flex;align-items:center;gap:6px;cursor:pointer">
+      <input type="radio" name="comb-data" value="survey" checked onchange="combToggleData()"> Use embedded survey data
+    </label>
+    <label style="font-size:13px;display:flex;align-items:center;gap:6px;cursor:pointer">
+      <input type="radio" name="comb-data" value="custom" onchange="combToggleData()"> Use custom belief values
+    </label>
+  </div>
+  <div id="comb-custom-data" style="display:none;margin-top:1rem">
+    <p style="font-size:12px;color:var(--text-sec);margin-bottom:8px">Enter 5 belief values (VL, L, M, H, VH) for each sub-criteria. Each row must sum to ≤ 1.0.</p>
+    <div id="comb-custom-inputs"></div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-title"><i class="ti ti-cpu" aria-hidden="true"></i> Final Aggregation Method</div>
+  <div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:8px">
+    <label style="font-size:13px;display:flex;align-items:center;gap:6px;cursor:pointer">
+      <input type="radio" name="comb-method" value="er" checked onchange="document.querySelectorAll('input[name=comb-method]').forEach(r=>{if(r.checked){combFinalMethod=r.value;document.getElementById('comb-brb-rules-card').style.display=r.value==='brb'?'':'none';}})"> ER (across groups)
+    </label>
+    <label style="font-size:13px;display:flex;align-items:center;gap:6px;cursor:pointer">
+      <input type="radio" name="comb-method" value="brb" onchange="document.querySelectorAll('input[name=comb-method]').forEach(r=>{if(r.checked){combFinalMethod=r.value;document.getElementById('comb-brb-rules-card').style.display=r.value==='brb'?'':'none';}})"> BRB (rule-based across groups)
+    </label>
+  </div>
+  <div id="comb-brb-rules-card" style="display:none">
+    <div style="display:flex;gap:8px;margin-bottom:8px">
+      <button class="btn btn-sm" onclick="combAddRule()"><i class="ti ti-plus" aria-hidden="true"></i> Add Rule</button>
+    </div>
+    <div id="comb-brb-rules-list"></div>
+  </div>
+</div>
+
+<div style="margin-top:1rem;display:flex;gap:8px;flex-wrap:wrap;">
+  <button class="btn btn-primary" onclick="combCalculate()"><i class="ti ti-calculator" aria-hidden="true"></i> Run Combined Analysis</button>
+  <button class="btn btn-sm" onclick="combExport()"><i class="ti ti-file-export" aria-hidden="true"></i> Export CSV</button>
+</div>
+
+<div class="card" id="combined-results" style="display:none">
+  <div class="card-title"><i class="ti ti-trophy" aria-hidden="true"></i> Combined ER + BRB Results</div>
+  <div class="metric-grid" id="comb-metrics"></div>
+  <div class="section-sep">Final Belief Distribution</div>
+  <div class="chart-container"><canvas id="comb-belief-chart"></canvas></div>
+  <div class="section-sep">Per-Group ER Scores</div>
+  <table class="result-table" id="comb-group-table"></table>
+  <div class="section-sep">Full Sub-Criteria Breakdown (normalised ER inputs)</div>
+  <table class="result-table" id="comb-full-table"></table>
+  <div class="section-sep" id="comb-brb-title">Final Belief Distribution</div>
+  <table class="result-table" id="comb-brb-table"></table>
+  <div class="section-sep" id="comb-brb-activation" style="display:none">BRB Rule Activation Weights</div>
+  <table class="result-table" id="comb-brb-activation-table"></table>
+</div>

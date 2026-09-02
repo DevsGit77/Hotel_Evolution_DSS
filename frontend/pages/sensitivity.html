@@ -1,0 +1,46 @@
+<div class="info-box">
+  <strong>Sensitivity Analysis:</strong> Explore how changes in criteria group weights affect the final utility score. Use systematic sweep (vary one weight at a time) or Monte Carlo simulation (random weight sampling).
+</div>
+
+<div class="grid2">
+  <div class="card">
+    <div class="card-title"><i class="ti ti-chart-line" aria-hidden="true"></i> Systematic Sweep</div>
+    <p style="font-size:13px;color:var(--text-sec);margin-bottom:10px">Vary each group weight from 0 to 1 while distributing the remaining weight equally.</p>
+    <div class="input-row">
+      <div class="label">Step Size</div>
+      <select id="sens-step">
+        <option value="0.1">0.10 (coarse)</option>
+        <option value="0.05" selected>0.05 (medium)</option>
+        <option value="0.02">0.02 (fine)</option>
+        <option value="0.01">0.01 (very fine)</option>
+      </select>
+    </div>
+    <button class="btn btn-primary" onclick="sensRunSweep()"><i class="ti ti-chart-line" aria-hidden="true"></i> Run Sweep</button>
+    <div class="chart-container" style="height:350px"><canvas id="sens-sweep-chart"></canvas></div>
+  </div>
+  <div class="card">
+    <div class="card-title"><i class="ti ti-dice" aria-hidden="true"></i> Monte Carlo Simulation</div>
+    <p style="font-size:13px;color:var(--text-sec);margin-bottom:10px">Randomly sample weight combinations (Dirichlet distribution) and observe the distribution of outcomes.</p>
+    <div class="input-row">
+      <div class="label">Number of Iterations</div>
+      <select id="sens-iterations">
+        <option value="1000">1,000 (quick)</option>
+        <option value="5000" selected>5,000 (standard)</option>
+        <option value="10000">10,000 (precise)</option>
+      </select>
+    </div>
+    <button class="btn btn-primary" onclick="sensRunMC()"><i class="ti ti-dice" aria-hidden="true"></i> Run Monte Carlo</button>
+    <div class="metric-grid" id="sens-mc-metrics" style="display:none"></div>
+    <div class="chart-container" style="height:250px"><canvas id="sens-mc-chart"></canvas></div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-title"><i class="ti ti-settings" aria-hidden="true"></i> Base Configuration</div>
+  <p style="font-size:13px;color:var(--text-sec);margin-bottom:10px">Current group weights (used as reference point)</p>
+  <div class="grid3">
+    <div class="metric"><div class="mlabel">w1 Facilities</div><div class="mval blue">0.400</div></div>
+    <div class="metric"><div class="mlabel">w2 Cost</div><div class="mval blue">0.350</div></div>
+    <div class="metric"><div class="mlabel">w3 General</div><div class="mval blue">0.250</div></div>
+  </div>
+</div>

@@ -1,0 +1,52 @@
+<div class="info-box">
+  <strong>Evidential Reasoning (ER):</strong> Combines multiple criteria beliefs using Dempster-Shafer theory. Input belief degrees for each grade. The algorithm normalises and aggregates them into a combined utility score.
+</div>
+
+<div class="card">
+  <div class="card-title"><i class="ti ti-settings" aria-hidden="true"></i> Configuration</div>
+  <div class="grid2">
+    <div class="input-row">
+      <div class="label">Select Criteria Group</div>
+      <select id="er-group" onchange="erLoadGroup()">
+        <option value="w1">FACILITIES (w1) — w11 to w18</option>
+        <option value="w2">COST (w2) — w21, w22</option>
+        <option value="w3">GENERAL (w3) — w31 to w37</option>
+        <option value="custom">Custom Input</option>
+      </select>
+    </div>
+    <div class="input-row">
+      <div class="label">Utility Scale Mapping</div>
+      <select id="er-utility">
+        <option value="linear">Linear (0.0, 0.25, 0.5, 0.75, 1.0)</option>
+        <option value="midpoint">Midpoint (0.1, 0.3, 0.5, 0.7, 0.9)</option>
+        <option value="custom">Custom</option>
+      </select>
+    </div>
+  </div>
+  <div id="er-utility-custom" style="display:none" class="input-row">
+    <div class="label">Custom Utilities (comma-separated, 5 values: VL, L, M, H, VH)</div>
+    <input type="text" id="er-custom-util" value="0.0,0.25,0.5,0.75,1.0">
+  </div>
+</div>
+
+<div class="card" id="er-criteria-card">
+  <div class="card-title"><i class="ti ti-list" aria-hidden="true"></i> Sub-Criteria Belief Inputs <span style="margin-left:auto;font-size:12px;font-weight:400;color:var(--text-sec)">Values in decimal (0.000–1.000)</span></div>
+  <div class="tab-row" id="er-subcriteria-tabs"></div>
+  <div id="er-belief-inputs"></div>
+  <div style="display:flex;gap:8px;margin-top:1rem;flex-wrap:wrap;">
+    <button class="btn btn-primary" onclick="erCalculate()"><i class="ti ti-calculator" aria-hidden="true"></i> Calculate ER</button>
+    <button class="btn btn-sm" onclick="erLoadSurvey()"><i class="ti ti-download" aria-hidden="true"></i> Load Survey Values</button>
+    <button class="btn btn-sm" onclick="erReset()"><i class="ti ti-refresh" aria-hidden="true"></i> Reset</button>
+    <button class="btn btn-sm" onclick="erExport()"><i class="ti ti-file-export" aria-hidden="true"></i> Export CSV</button>
+  </div>
+</div>
+
+<div class="card" id="er-results" style="display:none">
+  <div class="card-title"><i class="ti ti-chart-bar" aria-hidden="true"></i> ER Results</div>
+  <div class="metric-grid" id="er-metrics"></div>
+  <div class="section-sep">Aggregated Belief Distribution</div>
+  <div class="chart-container"><canvas id="er-belief-chart"></canvas></div>
+  <table class="result-table" id="er-table"></table>
+  <div class="section-sep">Utility Score per Sub-Criteria</div>
+  <table class="result-table" id="er-utility-table"></table>
+</div>

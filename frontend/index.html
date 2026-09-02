@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DS/ER & BRB Decision Support System</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="header">
+  <div class="header-content">
+    <div class="header-left">
+      <div class="header-icon"><i class="ti ti-chart-dots" aria-hidden="true"></i></div>
+      <div>
+        <h1>DS/ER &amp; BRB Decision Support System</h1>
+        <p>Evidential Reasoning · Belief Rule Base · Combined Analysis · Multi-Hotel Ranking</p>
+      </div>
+    </div>
+    <div class="header-right">
+      <button class="theme-toggle" id="themeToggle" title="Toggle dark/light mode" aria-label="Toggle theme">
+        <i class="ti ti-sun icon-sun"></i>
+        <i class="ti ti-moon icon-moon"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="nav" id="main-nav">
+  <div class="nav-inner">
+    <button class="nav-btn active" data-page="er"><i class="ti ti-chart-pie"></i> ER Method</button>
+    <button class="nav-btn" data-page="brb"><i class="ti ti-git-branch"></i> BRB Method</button>
+    <button class="nav-btn" data-page="combined"><i class="ti ti-layers-intersect"></i> Combined</button>
+    <button class="nav-btn" data-page="ranking"><i class="ti ti-trophy"></i> Ranking</button>
+    <button class="nav-btn" data-page="sensitivity"><i class="ti ti-adjustments-alt"></i> Sensitivity</button>
+    <button class="nav-btn" data-page="survey"><i class="ti ti-table"></i> Survey Data</button>
+  </div>
+</div>
+
+<div class="main" id="main-content">
+  <div class="page active" id="page-er"></div>
+  <div class="page" id="page-brb"></div>
+  <div class="page" id="page-combined"></div>
+  <div class="page" id="page-ranking"></div>
+  <div class="page" id="page-sensitivity"></div>
+  <div class="page" id="page-survey"></div>
+</div>
+
+<div class="footer">DS/ER &amp; BRB Decision Support System v2.0 &mdash; Powered by Flask + Python</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.1/jspdf.plugin.autotable.min.js"></script>
+
+<script src="js/api.js"></script>
+<script src="js/utils/charts.js"></script>
+<script src="js/utils/export.js"></script>
+<script src="js/pages/er-page.js"></script>
+<script src="js/pages/brb-page.js"></script>
+<script src="js/pages/combined-page.js"></script>
+<script src="js/pages/ranking-page.js"></script>
+<script src="js/pages/sensitivity-page.js"></script>
+<script src="js/pages/survey-page.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

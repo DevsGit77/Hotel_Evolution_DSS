@@ -1,0 +1,48 @@
+<div class="info-box">
+  <strong>Multi-Hotel Ranking (ER → BRB):</strong> Compare real accommodations around Rangamati Sadar. Each hotel is evaluated using ER (aggregating sub-criteria within each group) then BRB (across groups). Results are ranked by the final BRB utility score.
+</div>
+
+<div class="card">
+  <div class="card-title"><i class="ti ti-settings" aria-hidden="true"></i> Criteria Group Weights</div>
+  <p style="font-size:13px;color:var(--text-sec);margin-bottom:1rem">Weights for the three main groups. Must sum to 1.0.</p>
+  <div class="grid3">
+    <div class="input-row"><div class="label">w1 — Facilities</div><input type="number" id="rank-gw-w1" min="0" max="1" step="0.01"></div>
+    <div class="input-row"><div class="label">w2 — Cost</div><input type="number" id="rank-gw-w2" min="0" max="1" step="0.01"></div>
+    <div class="input-row"><div class="label">w3 — General</div><input type="number" id="rank-gw-w3" min="0" max="1" step="0.01"></div>
+  </div>
+  <div id="rank-gw-warn" style="font-size:12px;color:var(--coral-400);display:none;margin-top:6px">⚠ Weights do not sum to 1.0</div>
+</div>
+
+<div class="grid2">
+  <div class="card">
+    <div class="card-title"><i class="ti ti-building" aria-hidden="true"></i> Hotels</div>
+    <div id="ranking-hotel-list"></div>
+    <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap">
+      <button class="btn btn-sm btn-primary" onclick="rankAddHotel()"><i class="ti ti-plus" aria-hidden="true"></i> Add Hotel</button>
+      <button class="btn btn-sm" onclick="rankLoadRangamatiSample()"><i class="ti ti-download" aria-hidden="true"></i> Load Rangamati Hotels</button>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title"><i class="ti ti-git-branch" aria-hidden="true"></i> BRB Rules for Final Ranking</div>
+    <div id="ranking-brb-rules"></div>
+    <button class="btn btn-sm" onclick="rankLoadSampleRules()" style="margin-top:8px"><i class="ti ti-download" aria-hidden="true"></i> Load Default Rules</button>
+  </div>
+</div>
+
+<div id="ranking-edit-panel" style="display:none">
+  <div id="ranking-editor"></div>
+</div>
+
+<button class="btn btn-primary" onclick="rankCalculate()" style="margin-bottom:1rem"><i class="ti ti-trophy" aria-hidden="true"></i> Rank Hotels</button>
+
+<div class="card" id="ranking-results" style="display:none">
+  <div class="card-title"><i class="ti ti-trophy" aria-hidden="true"></i> Ranking Results</div>
+  <div class="metric-grid" id="ranking-metrics"></div>
+  <div class="section-sep">Comparison Chart</div>
+  <div class="chart-container"><canvas id="ranking-chart"></canvas></div>
+  <div class="section-sep">Ranked Hotels</div>
+  <table class="result-table" id="ranking-table"></table>
+  <div class="section-sep">Final BRB Belief Distribution Comparison</div>
+  <table class="result-table" id="ranking-belief-table"></table>
+  <button class="btn btn-sm" onclick="rankExport()" style="margin-top:10px"><i class="ti ti-file-export" aria-hidden="true"></i> Export CSV</button>
+</div>
