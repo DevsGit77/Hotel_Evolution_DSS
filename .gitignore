@@ -17,3 +17,10 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Build artifacts
+netlify-deploy.zip
+
+# Environment secrets
+.env
+.env.*
